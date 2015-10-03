@@ -17,7 +17,8 @@ angular.module('kingmaker', ['ionic','kingmaker.controller','kingmaker.services'
       StatusBar.styleDefault();
     }
 
-    Parse.initialize("6zeOxBzIIuI8zVYHk5NVPNl2areWWDiJXYg3rhca", "QLOGIE9XaEtnGuiVJWHC3QfYIj5OxvEu93hO6Ndp");
+    Parse.initialize("SAenSs3ANpppNo4dj4ZZbpflckiS87uAS2U74hig", "G2BgV6o3s0VzvdMtJw1F5DsnoXHcUX0RY0UAppyr");
+
 
   });
 })
@@ -32,6 +33,12 @@ $stateProvider
      templateUrl: 'templates/login.html',
      controller:'LoginCtrl'
  })
+
+ .state('candidate', {
+      url: '/candidate',
+      templateUrl: 'templates/candidate.html',
+      controller:'candidate'
+  })
 
 //Watch out for the commas
  .state('signup', {

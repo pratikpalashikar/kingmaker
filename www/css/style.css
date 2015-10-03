@@ -1,6 +1,8 @@
 /* Empty. Add your own CSS if you like */
-h1.title{
+button.button-block.button-calm{
+  background: #8ABCE5;
+};
 
-  font-weight: bold;
-
+a.button.button-positive{
+  background: #8ABCE5;
 }
