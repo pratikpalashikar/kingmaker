@@ -1,5 +1,9 @@
-<ion-view view-title="Login" name="login-view">
+
+<ion-view  name="login-view" class="header"> 
+   
+  <ion-nav-title >KingMaker</ion-nav-title>
     <ion-content class="padding">
+        <form>
       <div class="list list-inset">
           <label class="item item-input">
               <input type="text" placeholder="Username" ng-model="data.username">
@@ -11,6 +15,9 @@
       <button class="button button-block button-calm" ng-click="login()">Login</button>
       <button onclick="window.location.href = '#/signup'" class="button button-block button-calm" style="width: 100%; margin: 20px 0; ">
         Sign In
-      </button>
+      </button>   
+          <!-- <img ng-src="img/crown.jpg" class="login" ></img>-->
+        </form>
   </ion-content>
-</ion-view>
+   
+</ion-view >

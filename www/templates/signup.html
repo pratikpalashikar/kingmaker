@@ -3,19 +3,27 @@
         <form>
             <ion-list>
                 <label class="item item-input">
+                    <!--This is the username-->
                     <span class="input-label">Username</span>
                     <input type="text" placeholder="enter username..." ng-model="data.username">
                 </label>
+                <!--This is the Email field-->
                 <label class="item item-input">
                     <span class="input-label">Email</span>
                     <input type="email" placeholder="you@domain.com" ng-model="data.email">
                 </label>
+                 <!--This is the password field-->
                 <label class="item item-input">
                     <span class="input-label">Password</span>
                     <input type="password" placeholder="At least 6 characters" ng-model="data.password">
                 </label>
+                 <!--This is the Mobile number field-->
+               <label class="item item-input">
+                    <span class="input-label">Telephone</span>
+                        <input type="tel" placeholder="Enter your mobile number" ng-model="data.tel">
+                </label>
             </ion-list>
-            <button class="button button-stable button-block" ng-click="signUp()">Sign Up</button>
+            <button class="button button-block button-calm" ng-click="signUp()">Sign Up</button>
         </form>
     </ion-content>
 </ion-view>

@@ -1,8 +1,28 @@
 /* Empty. Add your own CSS if you like */
 button.button-block.button-calm{
   background: #8ABCE5;
-};
+}
 
 a.button.button-positive{
   background: #8ABCE5;
+}
+
+
+.padding {
+background: #fff;
+}
+
+.login{
+   display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 300px;
+        max-width: 300px;
+   
+}
+
+
+input.ng-touched.ng-dirty.ng-valid-number.ng-invalid.ng-invalid-max {
+  -webkit-appearance:none;
+  margin:0;
 }
