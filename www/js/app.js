@@ -20,8 +20,6 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         //First is application id and the second is the client key
         Parse.initialize("CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx", "irEFXbxE25QxOibHJYHrPmTaVpMiHbWmVmO7HpxV");
 
-
-
     });
 })
 
@@ -31,110 +29,102 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
 .config(function ($stateProvider, $urlRouterProvider) {
 
     //This is done to move the position of the tab to the bottom
-    //$ionicConfigProvider.tabs.position('bottom'); // other values: top
 
     $stateProvider
 
-    // setup an abstract state for the tabs directive
-    /* .state('maintab', {
+    .state('maintab', {
         url: '/maintab',
         abstract: true,
         templateUrl: 'templates/maintab.html'
     })
-    */
 
-.state('maintab', {
-    url: '/maintab',
-    abstract: true,
-    templateUrl: 'templates/maintab.html'
-})
-
-.state('maintab.candidate', {
-    url: '/candidate',
-    views: {
-        'candidate': {
-            templateUrl: 'templates/candidate.html'
+    .state('maintab.candidate', {
+        url: '/candidate',
+        views: {
+            'candidate': {
+                templateUrl: 'templates/candidate.html'
+            }
         }
-    }
-})
+    })
 
-.state('maintab.events', {
-    url: '/events',
-     views: {
-        'events': {    
-    templateUrl: 'templates/events.html'
+    .state('maintab.events', {
+        url: '/events',
+        views: {
+            'events': {
+                templateUrl: 'templates/events.html'
+            }
         }
-     }
-})
+    })
 
-.state('maintab.following', {
-    url: '/following',
-    views: {
-        'following': {
-            templateUrl: 'templates/following.html'
-        },
-         'a': {
-            templateUrl: 'templates/following.html'
+    .state('maintab.following', {
+        url: '/following',
+        views: {
+            'following': {
+                templateUrl: 'templates/following.html'
+            },
+            'a': {
+                templateUrl: 'templates/following.html'
+            }
         }
-    }
 
-})
-    
-.state('maintab.volunteer', {
-    url: '/volunteer',
-    views: {
-        'volunteer': {
-            templateUrl: 'templates/volunteer.html'
+    })
+
+    .state('maintab.volunteer', {
+        url: '/volunteer',
+        views: {
+            'volunteer': {
+                templateUrl: 'templates/volunteer.html'
+            }
         }
-    }
-})
-    
-.state('maintab.messages', {
-    url: '/messages',
-    views: {
-        'messages': {
-            templateUrl: 'templates/messages.html'
+    })
+
+    .state('maintab.messages', {
+        url: '/messages',
+        views: {
+            'messages': {
+                templateUrl: 'templates/messages.html'
+            }
         }
-    }
-})
-    
-.state('maintab.newsfeed', {
-    url: '/newsfeed',
-    views: {
-        'newsfeed': {
-            templateUrl: 'templates/newsfeed.html'
+    })
+
+    .state('maintab.newsfeed', {
+        url: '/newsfeed',
+        views: {
+            'newsfeed': {
+                templateUrl: 'templates/newsfeed.html', 
+                controller: 'FeedController'
+            }
         }
-    }
-})
+    })
 
 
-//Watch out for the commas
-.state('login', {
-    url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'LoginCtrl'
+    //Watch out for the commas
+    .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl'
 
-})
+    })
 
-.state('candidate', {
-    url: '/candidate',
-    templateUrl: 'templates/candidate.html',
-    controller: 'candidate'
-})
+    .state('candidate', {
+        url: '/candidate',
+        templateUrl: 'templates/candidate.html',
+        controller: 'candidate'
+    })
 
-.state('createEvent', {
-    url: '/createEvent',
-    templateUrl: 'templates/createEvent.html',
-    controller: 'createEvent'
-})
+    .state('createEvent', {
+        url: '/createEvent',
+        templateUrl: 'templates/createEvent.html',
+        controller: 'createEvent'
+    })
 
-//Watch out for the commas
-.state('signup', {
-    url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'LoginCtrl'
-});
+    //Watch out for the commas
+    .state('signup', {
+        url: '/signup',
+        templateUrl: 'templates/signup.html',
+        controller: 'LoginCtrl'
+    });
 
-// if none of the above states are matched, use this as the fallback
-$urlRouterProvider.otherwise('/maintab/events');
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/maintab/events');
 });

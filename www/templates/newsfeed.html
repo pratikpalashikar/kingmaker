@@ -1,4 +1,24 @@
-<ion-view title="Newsfeed">
-    <ion-content>
+<ion-view title="News Feed">
+    <ion-content padding="true" ng-init="init()">
+
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" placeholder="Search">
+            </label>
+            <button class="button button-clear">
+                Cancel
+            </button>
+        </div>
+        <div class="list">
+            <div ng-repeat="entry in entries" class="item">
+                <h><a href="" ng-click="browse(entry.link)">{{entry.title}}</a></h>
+                <p class="text-left">{{entry.contentSnippet}}</p>
+                <p class="text-left">{{entry.description}}</p>
+                <p class="text-left">{{entry.author}}</p>
+                <span class="small">{{entry.publishedDate}}</span>
+
+            </div>
+        </div>
     </ion-content>
-</ion-view>
+</ion-view> 

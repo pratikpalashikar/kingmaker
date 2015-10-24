@@ -42,6 +42,29 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 
 });
 
+
+app.controller('FeedController', function ($http, $scope) {
+
+    $scope.init = function () {
+        $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=JSON_CALLBACK&q=' + encodeURIComponent('http://maharashtratimes.indiatimes.com/rssfeeds/2429066.cms'))
+            .success(function(data){
+           
+            $scope.entries = data.responseData.feed.entries;
+        })
+            .error(function(data){
+            console.log("Error "+data)
+         
+    });
+    
+    }
+    
+    $scope.browse = function(v){
+        window.open(v,"system","location=yes");   
+    }
+
+
+});
+
 /*This is the controller to control the internal app candidate add-on*/
 app.controller('candidate', function ($scope) {
     $scope.candidates = [
@@ -96,7 +119,7 @@ app.controller('candidate', function ($scope) {
 
 /*This controller is used to create the event*/
 app.controller('maintab', function ($scope, $ionicPopup, $state, createEventService) {
-    
+
 });
 
 
@@ -104,14 +127,14 @@ app.controller('maintab', function ($scope, $ionicPopup, $state, createEventServ
 app.controller('createEvent', function ($scope, $ionicPopup, $state, createEventService) {
     $scope.data = {};
     $scope.image = [];
-   
+
     /*create event function*/
 
     // var file = new Parse.File("myfile.png",$scope.data.file, "image/png");
-alert($scope.image.file);
+    alert($scope.image.file);
     $scope.save = function () {
-        
-   
+
+
         createEventService.addEvent($scope.data.eventname, $scope.data.description, $scope.data.organizer, $scope.data.tagline, $scope.data.datetime, $scope.data.file).success(function (data) {
 
             var alertPopup = $ionicPopup.alert({
