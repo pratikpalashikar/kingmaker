@@ -32,7 +32,7 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
 
     $stateProvider
 
-    .state('maintab', {
+        .state('maintab', {
         url: '/maintab',
         abstract: true,
         templateUrl: 'templates/maintab.html'
@@ -91,20 +91,25 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         url: '/newsfeed',
         views: {
             'newsfeed': {
-                templateUrl: 'templates/newsfeed.html', 
+                templateUrl: 'templates/newsfeed.html',
                 controller: 'FeedController'
             }
         }
     })
 
+    .state('comments', {
+            url: '/comments',
+            templateUrl: 'templates/comments.html',
+            controller: 'comments'
 
-    //Watch out for the commas
-    .state('login', {
-        url: '/login',
-        templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
+        })
+        //Watch out for the commas
+        .state('login', {
+            url: '/login',
+            templateUrl: 'templates/login.html',
+            controller: 'LoginCtrl'
 
-    })
+        })
 
     .state('candidate', {
         url: '/candidate',

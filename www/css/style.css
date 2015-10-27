@@ -22,6 +22,13 @@ background: #fff;
 }
 
 
+.search{
+ 
+    margin-top: 50px;
+    
+}
+
+
 input.ng-touched.ng-dirty.ng-valid-number.ng-invalid.ng-invalid-max {
   -webkit-appearance:none;
   margin:0;

@@ -43,23 +43,26 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 });
 
 
-app.controller('FeedController', function ($http, $scope) {
+app.controller('FeedController', function ($http, $scope, $state) {
+
 
     $scope.init = function () {
-        $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=JSON_CALLBACK&q=' + encodeURIComponent('http://maharashtratimes.indiatimes.com/rssfeeds/2429066.cms'))
-            .success(function(data){
-           
-            $scope.entries = data.responseData.feed.entries;
-        })
-            .error(function(data){
-            console.log("Error "+data)
-         
-    });
-    
+        $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=JSON_CALLBACK&q=' + encodeURIComponent('http://maharashtratimes.indiatimes.com/rssfeeds/2429066.cms'))
+            .success(function (data) {
+
+                $scope.entries = data.responseData.feed.entries;
+
+            })
+            .error(function (data) {
+                console.log("Error " + data);
+
+
+            });
+
     }
-    
-    $scope.browse = function(v){
-        window.open(v,"system","location=yes");   
+
+    $scope.browse = function (v) {
+        window.open(v, "system", "location=yes");
     }
 
 
@@ -122,6 +125,16 @@ app.controller('maintab', function ($scope, $ionicPopup, $state, createEventServ
 
 });
 
+
+/*This controller is used to create the event*/
+app.controller('comments', function ($scope, $ionicHistory, $ionicPopup, $state, createEventService) {
+
+    $scope.myGoBack = function () {
+        $ionicHistory.goBack();
+    };
+
+
+});
 
 /*This controller is used to create the event*/
 app.controller('createEvent', function ($scope, $ionicPopup, $state, createEventService) {
