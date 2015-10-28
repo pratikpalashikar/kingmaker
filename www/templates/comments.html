@@ -4,10 +4,40 @@
     <ion-nav-buttons>
         <button class="button button-clear" ng-click="myGoBack()">Back</button>
     </ion-nav-buttons>
+    <ion-content>
+        <div class="item item-avatar">
+            <img src="mcfly.jpg">
+            <ion-header><a href="" ng-click="browse(entry.link)">{{entry.title}}</a></ion-header>
+            <p>{{entry.contentSnippet}}</p>
+        </div>
+        <div class="item item-body">
+            <img class="full-image" src="delorean.jpg">
+            <p>
+                {{entry.description}}
+            </p>
+            <p>
+                <a href="#" class="subdued">1 Like</a>
+                <a href="#" class="subdued">5 Comments</a>
+            </p>
+        </div>
+        <div class="list" ng-repeat="comment in comments">
+            <!--use ng-repeat later-->
+            <a class="item item-avatar" href="#">
+                <img ng-src={{comment.image}}>
+                <ion-item class="item-text-wrap">
+                    <h2>{{comment.postedby}}</h2>
+                    <p>{{comment.post}}</p>
+                </ion-item>
 
-    
-    
-    
+            </a>
+
+
+        </div>
+
+    </ion-content>
+
+
+
     <!--This is the section containing the volunteer and the supporter section-->
     <ion-footer-bar>
         <div class="button-bar">
