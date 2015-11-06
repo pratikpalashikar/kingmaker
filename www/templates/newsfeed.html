@@ -1,6 +1,6 @@
 <ion-view title="News Feed">
 
-    <!---->
+    <!--This is the search bar for the newfeed screen-->
     <div class="bar bar-subheader item-input-inset search">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
@@ -11,6 +11,7 @@
         </button>
     </div>
 
+    <!--Displays the cards for the screens it may be of the elections and events-->
     <ion-content padding="true" has-header="true" ng-init="init()">
 
         <div class="list card" ng-repeat="entry in entries">

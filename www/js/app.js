@@ -26,18 +26,20 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
 
 
 // this is used as the router to change the state of the application
+/*Take care for the commas while editing the state it may lead to error*/
 .config(function ($stateProvider, $urlRouterProvider) {
 
     //This is done to move the position of the tab to the bottom
 
     $stateProvider
-
-        .state('maintab', {
+    /*This is the abstract tab for the maintabs*/
+    .state('maintab', {
         url: '/maintab',
         abstract: true,
         templateUrl: 'templates/maintab.html'
     })
 
+    /*Main tab pages starts*/
     .state('maintab.candidate', {
         url: '/candidate',
         views: {
@@ -60,9 +62,6 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         url: '/following',
         views: {
             'following': {
-                templateUrl: 'templates/following.html'
-            },
-            'a': {
                 templateUrl: 'templates/following.html'
             }
         }
@@ -96,34 +95,69 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
             }
         }
     })
+   /*Maintab bar ends*/
+    
+    
+    /*Subtab for the subtab*/
+    .state('subtab', {
+        url: '/following',
+        abstract: true,
+        templateUrl: 'templates/following.html'
+    })
 
+     
+     .state('subtab.candidate', {
+        url: '/candidate',
+        views: {
+            'candidateView': {
+                templateUrl: 'templates/candidate.html',
+                controller: 'candidate'
+            }
+        }
+    })
+    
+     .state('subtab.election', {
+        url: '/election',
+        views: {
+            'electionView': {
+                templateUrl: 'templates/election.html',
+                controller: 'election'
+            }
+        }
+    })
+    /*Subtab ends*/
+  
+    /*Navigates to the comments page*/
     .state('comments', {
             url: '/comments',
             templateUrl: 'templates/comments.html',
             controller: 'comments'
 
         })
-        //Watch out for the commas
-        .state('login', {
+    
+    /*This is the main login page*/
+    .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
             controller: 'LoginCtrl'
 
         })
 
+    /*Candidate Page*/
     .state('candidate', {
         url: '/candidate',
         templateUrl: 'templates/candidate.html',
         controller: 'candidate'
     })
 
+    /*Screen that will be used to create the event */
     .state('createEvent', {
         url: '/createEvent',
         templateUrl: 'templates/createEvent.html',
         controller: 'createEvent'
     })
 
-    //Watch out for the commas
+    /*Sign up screen*/
     .state('signup', {
         url: '/signup',
         templateUrl: 'templates/signup.html',
