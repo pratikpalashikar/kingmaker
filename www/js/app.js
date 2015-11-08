@@ -18,7 +18,8 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         }
 
         //First is application id and the second is the client key
-        Parse.initialize("CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx", "irEFXbxE25QxOibHJYHrPmTaVpMiHbWmVmO7HpxV");
+                        //Application ID                             //Javascript rest api key   
+        Parse.initialize("CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx", "SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm");
 
     });
 })
@@ -40,15 +41,7 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
     })
 
     /*Main tab pages starts*/
-    .state('maintab.candidate', {
-        url: '/candidate',
-        views: {
-            'candidate': {
-                templateUrl: 'templates/candidate.html'
-            }
-        }
-    })
-
+    
     .state('maintab.events', {
         url: '/events',
         views: {
@@ -144,12 +137,12 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         })
 
     /*Candidate Page*/
-    .state('candidate', {
+    /*.state('candidate', {
         url: '/candidate',
         templateUrl: 'templates/candidate.html',
         controller: 'candidate'
     })
-
+*/
     /*Screen that will be used to create the event */
     .state('createEvent', {
         url: '/createEvent',

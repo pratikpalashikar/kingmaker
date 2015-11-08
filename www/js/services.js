@@ -1,5 +1,26 @@
 angular.module('kingmaker.services', [])
 
+.factory('dataObjects', ['$http', function ($http) {
+
+    var baseUrl = 'https://api.parse.com/1/classes/Candidates';
+    var dataFactory = {};
+
+
+    dataFactory.getCandidates = function () {
+        return $http.get(baseUrl,{
+        headers:{
+            'Content-Type': 'application/json',
+            'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
+            'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
+        }
+        
+        });
+    }
+
+    return dataFactory;
+
+}])
+
 .service('LoginService', function ($q) {
     var e = $q.defer();
     var promise = e.promise;

@@ -6,7 +6,7 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 
     $scope.login = function () {
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function (data) {
-            $state.go('createEvent');
+            $state.go('maintab.events');
             //  alert("login success");
         }).error(function (data) {
             var alertPopup = $ionicPopup.alert({
@@ -43,8 +43,21 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 });
 
 
-app.controller('FeedController', function ($http, $scope, $state) {
+app.controller('FeedController', function ($http, $scope, $state,dataObjects) {
+    
+    
+     $scope.init = function () {
+        dataObjects.getCandidates()
+            .success(function (candidates) {
+                $scope.candidates = candidates.results;
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load candidate data: ' + error.message;
+                alert($scope.status);
+            });
+    }
 
+/*
 
     $scope.init = function () {
         $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=JSON_CALLBACK&q=' + encodeURIComponent('http://maharashtratimes.indiatimes.com/rssfeeds/2429066.cms'))
@@ -60,6 +73,7 @@ app.controller('FeedController', function ($http, $scope, $state) {
             });
 
     }
+*/
 
     $scope.browse = function (v) {
         window.open(v, "system", "location=yes");
@@ -68,55 +82,19 @@ app.controller('FeedController', function ($http, $scope, $state) {
 
 });
 
-/*This is the controller to control the internal app candidate add-on*/
-app.controller('candidate', function ($scope) {
-    $scope.candidates = [
-        {
-            name: 'Pratik Palashikar'
-        },
-        {
-            name: 'Sanjay Thorat'
-        }
-]
+/*This controller is called when the user clicks on the candidate tab, the information should appear in the form of all candidates*/
+app.controller('candidate', function ($scope,$http, dataObjects) {
+    
 
-    $scope.data = {
-        showDelete: false,
-        i: 0
+    $scope.init = function () {
+        dataObjects.getCandidates()
+            .success(function (candidates) {
+                $scope.candidates = candidates;
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load candidate data: ' + error.message;
+            });
     }
-
-    $scope.likes = function () {
-        $scope.data.i++
-    }
-
-
-    $scope.add = function () {
-        $scope.candidates.push({
-            name: 'Sanjay Thorat'
-        })
-        $scope.candidates.push({
-            name: 'Sanjay Thorat'
-        })
-        $scope.elections.push({
-            name: 'Princeton'
-        })
-        $scope.elections.push({
-            name: 'MIT'
-        })
-    }
-
-    $scope.elections = [
-        {
-            name: 'MIT'
-        },
-        {
-            name: 'Princeton'
-        },
-        {
-            name: 'University of texas Arlington'
-        }
-]
-
-
 });
 
 
@@ -133,12 +111,12 @@ app.controller('comments', function ($scope, $ionicHistory, $ionicPopup, $state,
         $ionicHistory.goBack();
     };
 
-    
-     $scope.comments = [
+
+    $scope.comments = [
   ];
-    
-    
-    
+
+
+
 
 });
 
