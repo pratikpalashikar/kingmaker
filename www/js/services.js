@@ -1,5 +1,9 @@
 angular.module('kingmaker.services', [])
 
+
+/*This is used to access the candidates which are involved in the election
+factory is used to return the object
+*/
 .factory('dataObjects', ['$http', function ($http) {
 
     var baseUrl = 'https://api.parse.com/1/classes/Candidates';
@@ -7,19 +11,64 @@ angular.module('kingmaker.services', [])
 
 
     dataFactory.getCandidates = function () {
-        return $http.get(baseUrl,{
-        headers:{
-            'Content-Type': 'application/json',
-            'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
-            'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
-        }
-        
+        return $http.get(baseUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
+            }
+
         });
     }
 
     return dataFactory;
 
 }])
+
+
+/*This factory is used to get the activity of the users*/
+.factory('activity', ['$http', function ($http) {
+
+    var baseUrl = 'https://api.parse.com/1/classes/Activity';
+    var dataFactory = {};
+    var include;
+    var whereQuery = {'$or':
+                      [
+                          {
+                              'subType':'candidate'
+                          },
+                          {
+                              'subType':'election'
+                          },
+                          {
+                              'subType':'event'
+                          }
+                      ]
+                     }
+
+    dataFactory.getCandidates = function () {
+        return $http.get(baseUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm' 
+            },
+            params:  { 
+                 where: whereQuery,
+                 limit: 20,
+                 include : 'mediaId'
+                 // count: 1
+                 // include: "something"
+              }
+
+        });
+    }
+
+    return dataFactory;
+
+}])
+
+
 
 .service('LoginService', function ($q) {
     var e = $q.defer();

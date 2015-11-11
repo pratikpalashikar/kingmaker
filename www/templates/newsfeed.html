@@ -14,17 +14,19 @@
     <!--Displays the cards for the screens it may be of the elections and events-->
     <ion-content padding="true" has-header="true" ng-init="init()">
 
-        <div class="list card" ng-repeat="candidate in candidates">
+        <div class="list card" ng-repeat="activity in activities">
 
             <div class="item item-avatar">
-                <img src="mcfly.jpg">
-                <ion-header><a href="" ng-click="browse(entry.link)">{{candidate.firstName}}</a></ion-header>
-                <p>{{candidate.section}}</p>
+                <img ng-src='{{activity.mediaId.imageVideo.thumbnail.url}}'>
+                <ion-header>{{activity.content}}</ion-header>
+            </div>
+            <div id="MyDiv">
+                <p>{{activity.mediaId.content}}</p>
             </div>
             <div class="item item-body">
-                <img class="full-image" src="delorean.jpg">
+                <img class="full-image" ng-src='{{activity.mediaId.imageVideo.url}}'>
                 <p>
-                    {{candidate.lastName}}
+                    {{activity.updatedAt}}
                 </p>
                 <p>
                     <a href="#" class="subdued">1 Like</a>

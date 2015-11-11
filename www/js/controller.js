@@ -43,17 +43,18 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 });
 
 
-app.controller('FeedController', function ($http, $scope, $state,dataObjects) {
+app.controller('FeedController', function ($http,$log,$scope,activity) {
     
     
      $scope.init = function () {
-        dataObjects.getCandidates()
-            .success(function (candidates) {
-                $scope.candidates = candidates.results;
+        activity.getCandidates()
+            .success(function (res) {
+                $scope.activities = res.results;
+               // alert(JSON.stringify(res));
             })
-            .error(function (error) {
+            .error(function (error) { 
                 $scope.status = 'Unable to load candidate data: ' + error.message;
-                alert($scope.status);
+                $log.error(error.message);
             });
     }
 
@@ -75,9 +76,9 @@ app.controller('FeedController', function ($http, $scope, $state,dataObjects) {
     }
 */
 
-    $scope.browse = function (v) {
+  /*  $scope.browse = function (v) {
         window.open(v, "system", "location=yes");
-    }
+    }*/
 
 
 });
