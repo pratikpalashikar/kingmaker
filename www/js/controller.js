@@ -83,6 +83,27 @@ app.controller('FeedController', function ($http,$log,$scope,activity) {
 
 });
 
+
+app.controller('EventController', function ($http,$log,$scope,events) {
+    
+    
+     $scope.init = function () {
+        events.getEvents()
+            .success(function (res) {
+                $scope.events = res.results;
+               // alert(JSON.stringify(res));
+            })
+            .error(function (error) { 
+                $scope.status = 'Unable to load candidate data: ' + error.message;
+                $log.error(error.message);
+            });
+    }
+
+
+});
+
+
+
 /*This controller is called when the user clicks on the candidate tab, the information should appear in the form of all candidates*/
 app.controller('candidate', function ($scope,$http, dataObjects) {
     

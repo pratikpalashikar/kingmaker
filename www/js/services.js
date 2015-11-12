@@ -69,6 +69,25 @@ factory is used to return the object
 }])
 
 
+/*This factory is used to get the activity of the users*/
+.factory('events', ['$http', function ($http) {
+
+    var baseUrl = 'https://api.parse.com/1/classes/Events';
+    var dataFactory = {};
+    dataFactory.getEvents = function () {
+        return $http.get(baseUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm' 
+            }
+        });
+    }
+    return dataFactory;
+
+}])
+
+
 
 .service('LoginService', function ($q) {
     var e = $q.defer();

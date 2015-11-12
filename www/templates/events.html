@@ -1,13 +1,45 @@
 <ion-view title="Events">
-    <ion-content padding="true">
-        <div class="bar bar-header item-input-inset">
+    <!--This is the search bar for the newfeed screen-->
+    <div class="bar bar-subheader item-input-inset search">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Search">
+            <input type="search" ng-model="searchKeyword" placeholder="Search">
         </label>
-        <button class="button button-clear">
+        <button class="button button-clear" ng-click="searchKeyword=''">
             Cancel
         </button>
+    </div>
+
+    <!--Displays the cards for the screens it may be of the elections and events-->
+    <ion-content padding="true" has-header="true" ng-init="init()">
+
+        <div class="list card"  ng-repeat="event in events | filter:searchKeyword">
+
+            <div class="MyDiv">
+                <!-- <img ng-src='{{activity.mediaId.imageVideo.url}}'>-->
+                <ion-header>Event: {{event.name}}</ion-header>
+                <br>
+                <ion-header>Tagline: {{event.tagline}}</ion-header>
+                <br>
+                <ion-header>Organizer: {{event.organizer}}</ion-header>
+                <p>Description: {{event.description}}</p>
+            </div>
+            <div class="item item-body">
+                <img class="full-image" ng-src='{{event.photo.url}}'>
+                <p>
+                    {{Date.parse(event.startTime.iso)}}
+                </p>
+
+                <p>
+                    <a href="#" class="subdued">1 Following</a>
+                </p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-thumbsup"></i> Follow
+                </a>
+            </div>
+
+
         </div>
-        </ion-content>
 </ion-view>

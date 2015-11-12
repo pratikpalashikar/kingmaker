@@ -46,7 +46,8 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         url: '/events',
         views: {
             'events': {
-                templateUrl: 'templates/events.html'
+                templateUrl: 'templates/events.html',
+                controller: 'EventController'
             }
         }
     })
