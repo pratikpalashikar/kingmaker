@@ -1,4 +1,4 @@
-var app = angular.module('kingmaker.controller', []);
+var app = angular.module('kingmaker.controller', ['ngCordova']);
 
 /*This is the controller to handle the login*/
 app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ionicPopup, $state) {
@@ -43,57 +43,113 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 });
 
 
-app.controller('FeedController', function ($http,$log,$scope,activity) {
-    
-    
-     $scope.init = function () {
+app.controller('FeedController', function ($http, $log, $scope, activity, $cordovaSocialSharing, $ionicActionSheet) {
+
+
+    $scope.init = function () {
         activity.getCandidates()
             .success(function (res) {
                 $scope.activities = res.results;
-               // alert(JSON.stringify(res));
+                // alert(JSON.stringify(res));
             })
-            .error(function (error) { 
+            .error(function (error) {
                 $scope.status = 'Unable to load candidate data: ' + error.message;
                 $log.error(error.message);
             });
     }
 
-/*
+    $scope.showActionsheet = function () {
 
-    $scope.init = function () {
-        $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=JSON_CALLBACK&q=' + encodeURIComponent('http://maharashtratimes.indiatimes.com/rssfeeds/2429066.cms'))
-            .success(function (data) {
+        $ionicActionSheet.show({
+            titleText: 'Share',
+            buttons: [
+                {
+                    text: '<i class="icon ion-social-facebook"></i> Facebook'
+                },
+                {
+                    text: '<i class="icon ion-social-whatsapp"></i> Watsapp'
+                },
+                {
+                    text: '<i class="icon ion-social-google"></i> Gmail'
+                },
+                {
+                    text: '<i class="icon ion-social-twitter"></i> Twitter'
+                },
+                {
+                    text: '<i class="icon ion-social-linkedin"></i> Linked In'
+                }
+      ],
+            destructiveText: 'Delete',
+            cancelText: 'Cancel',
+            cancel: function () {
+                console.log('CANCELLED');
+            },
+            buttonClicked: function (index) {
 
-                $scope.entries = data.responseData.feed.entries;
-
-            })
-            .error(function (data) {
-                console.log("Error " + data);
 
 
-            });
+                if (index == 0) {
 
-    }
-*/
+                    $scope.shareViaFacebook = function (message, image, link) {
+                        $cordovaSocialSharing.shareViaFacebook(message, image, link)
+                            .then(function (result) {
+                                console.log('sucess');
+                            }, function (err) {
+                                console.log('An error occured');
+                            });
+                    }
 
-  /*  $scope.browse = function (v) {
-        window.open(v, "system", "location=yes");
-    }*/
+
+                } else if (index == 1) {
+
+                    $scope.shareViaWhatsApp = function (message, image, link) {
+                        $cordovaSocialSharing.shareViaWhatsApp(message, image, link)
+                            .then(function (result) {
+                                console.log('sucess');
+                            }, function (err) {
+                                console.log('An error occured');
+                            });
+                    }
+
+
+                } else if (index == 2) {
+
+                    $scope.shareViaTwitter = function (message, image, link) {
+                        $cordovaSocialSharing.shareViaTwitter(message, image, link)
+                            .then(function (result) {
+                                console.log('sucess');
+                            }, function (err) {
+                                console.log('An error occured');
+                            });
+                    }
+                }
+
+
+
+            },
+            destructiveButtonClicked: function () {
+                console.log('DESTRUCT');
+                return true;
+            }
+        });
+    };
+
+
 
 
 });
 
 
-app.controller('EventController', function ($http,$log,$scope,events) {
-    
-    
-     $scope.init = function () {
+app.controller('EventController', function ($http, $log, $scope, events) {
+
+
+    $scope.init = function () {
         events.getEvents()
             .success(function (res) {
                 $scope.events = res.results;
-               // alert(JSON.stringify(res));
+                // alert(JSON.stringify(res));
             })
-            .error(function (error) { 
+            .error(function (error) {
                 $scope.status = 'Unable to load candidate data: ' + error.message;
                 $log.error(error.message);
             });
@@ -105,8 +161,8 @@ app.controller('EventController', function ($http,$log,$scope,events) {
 
 
 /*This controller is called when the user clicks on the candidate tab, the information should appear in the form of all candidates*/
-app.controller('candidate', function ($scope,$http, dataObjects) {
-    
+app.controller('candidate', function ($scope, $http, dataObjects) {
+
 
     $scope.init = function () {
         dataObjects.getCandidates()

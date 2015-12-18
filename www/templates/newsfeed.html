@@ -1,4 +1,4 @@
-<ion-view title="News Feed">
+<ion-view title="ElectionBuzz">
 
     <!--This is the search bar for the newfeed screen-->
     <div class="bar bar-subheader item-input-inset search">
@@ -6,8 +6,9 @@
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" ng-model="searchKeyword" placeholder="Search">
         </label>
+        <!--Changed as per the request-->
         <button class="button button-clear" ng-click="searchKeyword=''">
-            Cancel
+            Clear
         </button>
     </div>
 
@@ -19,6 +20,12 @@
             <div class="item item-avatar">
                 <img ng-src='{{activity.mediaId.imageVideo.url}}'>
                 <ion-header>{{activity.content}}</ion-header>
+                <!--Added for the testing purpose for now-->
+               
+                <!--   <button class="button" ng-click="shareViaTwitter('some message', null, 'http://lucashenrique.me')">Share on Twitter</button>
+                    <button class="button" ng-click="shareViaFacebook('some message', null, 'http://lucashenrique.me')">Share on Facebook</button>
+                    <button class="button" ng-click="shareViaWhatsApp('some message', null, 'http://lucashenrique.me')">Share on WhatsApp</button>-->
+
             </div>
             <div id="MyDiv">
                 <p>{{activity.mediaId.content}}</p>
@@ -40,6 +47,10 @@
 
                 <a class="tab-item" href="#comments">
                     <i class="icon ion-chatbox"></i> Comment
+                </a>
+                
+                 <a class="tab-item">
+                    <i class="icon ion-share" ng-click="showActionsheet()"></i> 
                 </a>
 
             </div>
