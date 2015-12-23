@@ -16,27 +16,18 @@
                 {{entry.description}}
             </p>
             <p>
-                <a href="#" class="subdued">1 Like</a>
+                <!--<a href="#" class="subdued">1 Like</a>-->
                 <a href="#" class="subdued">5 Comments</a>
             </p>
         </div>
-        <div class="list" >
-            <!--use ng-repeat later-->
-            <a class="item item-avatar" ng-repeat="comment in comments" href="#">
-                <img ng-src={{comment.image}}>
-                <ion-item class="item-text-wrap">
-                    <h2>{{comment.postedby}}</h2>
-                    <p>{{comment.post}}</p>
-                </ion-item>
-
-            </a>
-
-
-        </div>
-
+        <form ng-submit="btn_add(txtcomment)">
+            <textarea ng-model="txtcomment" placeholder="Your Comment" style="width:100%"></textarea>
+            <button type="submit" >Post</button>
+            <li ng-repeat="comnt in comment"> {{ comnt }}
+                <a style="float: right;" href="#" ng-click="remItem($index)">delete</a>
+            </li>
+        </form>
     </ion-content>
-
-
 
     <!--This is the section containing the volunteer and the supporter section-->
     <ion-footer-bar>

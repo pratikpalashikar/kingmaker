@@ -56,7 +56,8 @@ angular.module('kingmaker', ['ionic', 'kingmaker.controller', 'kingmaker.service
         url: '/following',
         views: {
             'following': {
-                templateUrl: 'templates/following.html'
+                templateUrl: 'templates/following.html',
+                controller: 'followingController'
             }
         }
 

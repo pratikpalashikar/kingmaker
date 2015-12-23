@@ -46,6 +46,31 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 app.controller('FeedController', function ($http, $log, $scope, activity, $cordovaSocialSharing, $ionicActionSheet) {
 
 
+
+    //This button is to toggle the like button
+    $scope.toggle = false;
+    //Like button counter
+    $scope.like = 0;
+
+
+
+    //Like button functionality
+    $scope.likebutton = function () {
+        //toggle for the colour
+        $scope.toggle = !$scope.toggle;
+        if ($scope.toggle == true) {
+            //Increment counter
+            $scope.like++;
+
+
+        } else {
+            //Decrement counter
+            $scope.like--;
+
+        }
+    }
+
+
     $scope.init = function () {
         activity.getCandidates()
             .success(function (res) {
@@ -189,11 +214,115 @@ app.controller('comments', function ($scope, $ionicHistory, $ionicPopup, $state,
         $ionicHistory.goBack();
     };
 
+    //This is the variable for the comments
+    $scope.comment = [];
+    $scope.txtcomment = "";
 
-    $scope.comments = [
-  ];
+    //This is the button to add the comments
+    $scope.btn_add = function (txtcomment) {
+        $scope.txtcomment = txtcomment;
+        if ($scope.txtcomment != '') {
+
+            $scope.comment.push($scope.txtcomment);
+            $scope.txtcomment = "";
+        }
+    }
+
+    //This is the button to remove the button
+    $scope.remItem = function ($index) {
+        $scope.comment.splice($index, 1);
+    }
 
 
+
+});
+
+
+/*This controller contains the electiona and the candidates tabs*/
+app.controller("followingController", function ($scope, $ionicSlideBoxDelegate, $ionicActionSheet) {
+
+    /*Slide bar for the election and the candidates*/
+    $scope.navSlide = function (index) {
+        $ionicSlideBoxDelegate.slide(index, 500);
+    }
+
+
+    /*Action sheet to share the content please look foe the altenative action which is present for the using the common functionality*/
+    $scope.showActionsheet = function () {
+
+        $ionicActionSheet.show({
+            titleText: 'Share',
+            buttons: [
+                {
+                    text: '<i class="icon ion-social-facebook"></i> Facebook'
+                },
+                {
+                    text: '<i class="icon ion-social-whatsapp"></i> Watsapp'
+                },
+                {
+                    text: '<i class="icon ion-social-google"></i> Gmail'
+                },
+                {
+                    text: '<i class="icon ion-social-twitter"></i> Twitter'
+                },
+                {
+                    text: '<i class="icon ion-social-linkedin"></i> Linked In'
+                }
+      ],
+            destructiveText: 'Delete',
+            cancelText: 'Cancel',
+            cancel: function () {
+                console.log('CANCELLED');
+            },
+            buttonClicked: function (index) {
+
+
+
+                if (index == 0) {
+
+                    $scope.shareViaFacebook = function (message, image, link) {
+                        $cordovaSocialSharing.shareViaFacebook(message, image, link)
+                            .then(function (result) {
+                                console.log('sucess');
+                            }, function (err) {
+                                console.log('An error occured');
+                            });
+                    }
+
+
+                } else if (index == 1) {
+
+                    $scope.shareViaWhatsApp = function (message, image, link) {
+                        $cordovaSocialSharing.shareViaWhatsApp(message, image, link)
+                            .then(function (result) {
+                                console.log('sucess');
+                            }, function (err) {
+                                console.log('An error occured');
+                            });
+                    }
+
+
+                } else if (index == 2) {
+
+                    $scope.shareViaTwitter = function (message, image, link) {
+                        $cordovaSocialSharing.shareViaTwitter(message, image, link)
+                            .then(function (result) {
+                                console.log('sucess');
+                            }, function (err) {
+                                console.log('An error occured');
+                            });
+                    }
+                }
+
+
+
+            },
+            destructiveButtonClicked: function () {
+                console.log('DESTRUCT');
+                return true;
+            }
+        });
+    };
 
 
 });

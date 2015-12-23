@@ -12,24 +12,75 @@
 -->
     <!--These are the subtabs for the following screen-->
     <ion-content padding="true">
-
-        <div class="row">
-            <div class="col">
+        <ion-slide-box pager-click="navSlide(index)" does-continue="true">
+            <ion-slide>
+                <!--Candidates screen-->
+                <div class="bar bar-header bar-stable">
+                    <h1 class="title">Candidates</h1>
+                </div>
                 
-                    <a class="tab-item" ui-sref="subtab.candidate">
-                        <i class="candidate"></i> Candidate
-                    </a>
-               
-            </div>
-
-            <div class="col">
-              
-                    <a class="tab-item" ui-sref="subtab.election">
-                        <i class="election"></i> Election
-                    </a> </ion-nav-view>
-            </div>
-        </div>
-
+                <!--List of the candidates-->
+                <!-- <div class="list card" ng-repeat="candidate in candidates">-->
+                <!--Body of the card conatining the photos and other details of the candidate-->
+                <div class="list card">
+                    <div class="item item-body">
+                        <img class="full-image" ng-src='{{activity.mediaId.imageVideo.url}}'>
+                        <div>
+                            <div class="candidateInfo">
+                                <p>
+                                    Candidate : &nbsp;&nbsp; Address :
+                                    <br> Election : Party : Section :
+                                </p>
+                            </div>
+                            <div class="candidateLogo">
+                                <img class="full-image" ng-src='{{activity.mediaId.imageVideo.url}}'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <!--This section includes the share and follow button-->
+                        <a class="tab-item">
+                            <i class="icon ion-share" ng-click="showActionsheet()"></i>
+                        </a>
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-bookmark"></i> Follow
+                        </a>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <!--Election screen-->
+                <div class="bar bar-header bar-light">
+                    <h1 class="title">Election</h1>
+                </div>
+                <!--List of the elections-->
+                <div class="list card">
+                    <div class="item item-body">
+                        <img class="full-image" ng-src='{{activity.mediaId.imageVideo.url}}'>
+                        <div>
+                            <div class="electionInfo">
+                                <p>
+                                    Date : &nbsp;&nbsp; Election Name :
+                                    <br> Address :
+                                </p>
+                                <p>countdown timer</p>
+                            </div>
+                            <div class="electionLogo">
+                                <img class="full-image" ng-src='{{activity.mediaId.imageVideo.url}}'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <!--This section includes the share and follow button-->
+                        <a class="tab-item">
+                            <i class="icon ion-share" ng-click="showActionsheet()"></i>
+                        </a>
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-bookmark"></i> Follow
+                        </a>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
     </ion-content>
-
 </ion-view>
