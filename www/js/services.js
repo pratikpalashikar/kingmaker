@@ -8,7 +8,7 @@ factory is used to return the object
 
     var baseUrl = 'https://api.parse.com/1/classes/Candidates';
     var dataFactory = {};
-
+    var include;
 
     dataFactory.getCandidates = function () {
         return $http.get(baseUrl, {
@@ -16,57 +16,112 @@ factory is used to return the object
                 'Content-Type': 'application/json',
                 'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
                 'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
+            },
+            params: {
+                where: {
+                    $relatedTo: {
+                        object: {
+                            __type: 'Pointer',
+                            className: 'Elections',
+                            objectId: '6VCyQjxbgI'
+                        },
+                        key: 'elecCandidate'
+                    }
+                }
             }
-
         });
     }
 
     return dataFactory;
-
 }])
+
 
 
 /*This factory is used to get the activity of the users*/
 .factory('activity', ['$http', function ($http) {
 
-    var baseUrl = 'https://api.parse.com/1/classes/Activity';
+    var baseUrl = 'https://api.parse.com/1/classes/Actions';
     var dataFactory = {};
     var include;
-    var whereQuery = {'$or':
-                      [
-                          {
-                              'subType':'candidate'
-                          },
-                          {
-                              'subType':'election'
-                          },
-                          {
-                              'subType':'event'
-                          }
-                      ]
-                     }
 
-    dataFactory.getCandidates = function () {
+
+    dataFactory.getCandidates = function (uservar) {
+
+        var whereQuery = {
+            'fromUser': uservar,
+            'type': 'follow',
+            'subType': 'candidate'
+        }
+
         return $http.get(baseUrl, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
-                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm' 
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
             },
-            params:  { 
-                 where: whereQuery,
-                 limit: 20,
-                 include : 'mediaId'
-                 // count: 1
-                 // include: "something"
-              }
+            params: {
+                where: whereQuery,
+                limit: 20,
+                include: 'candidateId'
+            }
 
         });
     }
 
+    dataFactory.getPosts = function (candidateIds) {
+
+
+        var getPostsUrl = 'https://api.parse.com/1/classes/Activity';
+
+        var getPostQuery = {
+            'type': 'post',
+            'postUser': {
+                
+                $in: candidateIds
+                
+            }
+        }
+
+        return $http.get(getPostsUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
+            },
+            params: {
+                where: getPostQuery,
+                limit: 20,
+                include: 'mediaId'
+            }
+        });
+    }
     return dataFactory;
 
 }])
+
+
+
+/*This factory is used to get the activity of the users*/
+.factory('getUserInfo', ['$http', function ($http) {
+
+
+    var dataFactory = {};
+
+    dataFactory.getUserId = function (user) {
+
+        var baseUrl = 'https://api.parse.com/1/users/' + user;
+        return $http.get(baseUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
+            }
+        });
+    }
+    return dataFactory;
+
+}])
+
 
 
 /*This factory is used to get the activity of the users*/
@@ -79,7 +134,7 @@ factory is used to return the object
             headers: {
                 'Content-Type': 'application/json',
                 'X-Parse-Application-Id': 'CoBPiX7SCnMPtiS9DuThOjuUk80gjDocQWPJ92Dx',
-                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm' 
+                'X-Parse-REST-API-Key': 'SUv0Uq0Befi9Kh7zre0hR1wjxhwej056rgYh0iGm'
             }
         });
     }
@@ -99,9 +154,7 @@ factory is used to return the object
                     e.resolve(user);
                 },
                 error: function (user, error) {
-
                     e.reject(user);
-
                 }
             });
             promise.success = function (fn) {

@@ -27,7 +27,6 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
                 title: 'SignUp Complete',
                 template: 'Please login using your credential'
             });
-
             $state.go('login');
             //alert("login success");
         }, function (data) {
@@ -43,7 +42,7 @@ app.controller('LoginCtrl', function ($scope, LoginService, SignUpService, $ioni
 });
 
 
-app.controller('FeedController', function ($http, $log, $scope, activity, $cordovaSocialSharing, $ionicActionSheet) {
+app.controller('FeedController', function ($http, $log, $scope, activity, getUserInfo, $cordovaSocialSharing, $ionicActionSheet) {
 
 
 
@@ -52,6 +51,10 @@ app.controller('FeedController', function ($http, $log, $scope, activity, $cordo
     //Like button counter
     $scope.like = 0;
 
+    var userId;
+
+    var tempCandidate = [];
+    var jsons = new Array();
 
 
     //Like button functionality
@@ -71,17 +74,81 @@ app.controller('FeedController', function ($http, $log, $scope, activity, $cordo
     }
 
 
+    /*Get the object id of the user using his username*/
+    getUserInfo.getUserId(loggedInUserName).
+    success(function (userId) {
+            alert(JSON.stringify(userId));
+            $scope.userId = userId;
+
+        })
+        .error(function (error) {
+            $scope.status = 'Unable to load candidate data: ' + error.message;
+            $log.error(error.message);
+        });
+    /*Function ends to retrieve user Id*/
+
+
+
+    /*First of all get the data of the logged in user following a candidate */
+    var loggedInUserName = '';
+
     $scope.init = function () {
-        activity.getCandidates()
+
+        /* Get the candidates ID */
+        var objectId = "5j5DcUpAfK";
+
+        activity.getCandidates(objectId)
             .success(function (res) {
-                $scope.activities = res.results;
-                // alert(JSON.stringify(res));
+
+                /*using the for loop to extract only the candidate ids*/
+
+                for (var i = 0; i < res.results.length; i++) {
+
+                    tempCandidate[i] = res.results[i].candidateId.objectId;
+                    /*console.log(tempCandidate[i]);*/
+                    /*getPosts(tempCandidate[i]);*/
+                }
+
+                getPosts(tempCandidate);
+
+
             })
             .error(function (error) {
                 $scope.status = 'Unable to load candidate data: ' + error.message;
                 $log.error(error.message);
             });
+
+        /*  */
+
+
     }
+
+    function getPosts(candidateIds) {
+
+        activity.getPosts(candidateIds)
+            .success(function (resPosts) {
+                /*console.log(JSON.stringify(resPosts.results));*/
+                $scope.activities = resPosts.results;
+                /*console.log(jsons);*/
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load candidate data: ' + error.message;
+                $log.error(error.message);
+            });
+
+    }
+
+    /*   $scope.init = function () {
+           activity.getCandidates()
+               .success(function (res) {
+                   $scope.activities = res.results;
+                   // alert(JSON.stringify(res));
+               })
+               .error(function (error) {
+                   $scope.status = 'Unable to load candidate data: ' + error.message;
+                   $log.error(error.message);
+               });
+       }*/
 
     $scope.showActionsheet = function () {
 
@@ -159,14 +226,10 @@ app.controller('FeedController', function ($http, $log, $scope, activity, $cordo
         });
     };
 
-
-
-
 });
 
 
 app.controller('EventController', function ($http, $log, $scope, events) {
-
 
     $scope.init = function () {
         events.getEvents()
@@ -239,7 +302,28 @@ app.controller('comments', function ($scope, $ionicHistory, $ionicPopup, $state,
 
 
 /*This controller contains the electiona and the candidates tabs*/
-app.controller("followingController", function ($scope, $ionicSlideBoxDelegate, $ionicActionSheet) {
+app.controller("followingController", function ($scope, $ionicSlideBoxDelegate, $ionicActionSheet, dataObjects) {
+
+
+
+    //This is calling the service to get the values of the candidates that are involved in the election.
+    $scope.init = function () {
+
+        dataObjects.getCandidates()
+            .success(function (candidates) {
+                $scope.candidates = candidates;
+                console.log(candidates);
+                alert(JSON.stringify(candidates));
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load candidate data: ' + error;
+                console.log(status);
+            });
+
+    }
+
+
+
 
     /*Slide bar for the election and the candidates*/
     $scope.navSlide = function (index) {

@@ -11,7 +11,7 @@
     </div>
 -->
     <!--These are the subtabs for the following screen-->
-    <ion-content padding="true">
+    <ion-content padding="true" ng-init="init()">
         <ion-slide-box pager-click="navSlide(index)" does-continue="true">
             <ion-slide>
                 <!--Candidates screen-->
@@ -22,7 +22,7 @@
                 <!--List of the candidates-->
                 <!-- <div class="list card" ng-repeat="candidate in candidates">-->
                 <!--Body of the card conatining the photos and other details of the candidate-->
-                <div class="list card">
+                <div class="list card" >
                     <div class="item item-body">
                         <img class="full-image" ng-src='{{activity.mediaId.imageVideo.url}}'>
                         <div>
